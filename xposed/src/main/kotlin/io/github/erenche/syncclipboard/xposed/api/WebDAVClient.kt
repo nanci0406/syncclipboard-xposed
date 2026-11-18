@@ -9,8 +9,10 @@ import io.github.erenche.syncclipboard.common.model.HistoryStatisticsDto
 import io.github.erenche.syncclipboard.common.model.ProfileDto
 import io.github.erenche.syncclipboard.common.util.HashUtils
 import io.github.erenche.syncclipboard.common.util.Logger
+import io.github.erenche.syncclipboard.common.util.SYNC_USER_AGENT
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.UserAgent
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.request.header
@@ -58,6 +60,9 @@ class WebDAVClient(
     }
 
     private val client = httpClient ?: HttpClient(OkHttp) {
+        install(UserAgent) {
+            agent = SYNC_USER_AGENT
+        }
         install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true

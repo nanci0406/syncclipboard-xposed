@@ -6,6 +6,7 @@ import io.github.erenche.syncclipboard.common.model.ProfileDto
 import io.github.erenche.syncclipboard.common.model.ServerConfig
 import io.github.erenche.syncclipboard.common.util.HashUtils
 import io.github.erenche.syncclipboard.common.util.Logger
+import io.github.erenche.syncclipboard.common.util.SYNC_USER_AGENT
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.net.HttpURLConnection
@@ -48,6 +49,7 @@ class ServerApi(private val server: ServerConfig) {
         val conn = url.openConnection() as HttpURLConnection
         conn.connectTimeout = 10000
         conn.readTimeout = 15000
+        conn.setRequestProperty("User-Agent", SYNC_USER_AGENT)
         authHeader()?.let { conn.setRequestProperty("Authorization", it) }
         return conn
     }

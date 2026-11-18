@@ -15,6 +15,7 @@ import io.ktor.websocket.readText
 import io.github.erenche.syncclipboard.common.model.HistoryRecordDto
 import io.github.erenche.syncclipboard.common.model.ProfileDto
 import io.github.erenche.syncclipboard.common.util.Logger
+import io.github.erenche.syncclipboard.common.util.SYNC_USER_AGENT
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -126,7 +127,7 @@ class SignalRClient(
                 if (authHeader != null) {
                     header("Authorization", authHeader)
                 }
-                header("User-Agent", "SyncClipboard-Android")
+                header("User-Agent", SYNC_USER_AGENT)
             }
             if (response.status.value !in 200..299) {
                 Log.w(TAG, "Negotiate failed: HTTP ${response.status.value}")
@@ -229,7 +230,7 @@ class SignalRClient(
                         if (authHeader != null) {
                             header("Authorization", authHeader)
                         }
-                        header("User-Agent", "SyncClipboard-Android")
+                        header("User-Agent", SYNC_USER_AGENT)
                     }
                 ) {
                     onConnected(this)
@@ -256,7 +257,7 @@ class SignalRClient(
                 if (authHeader != null) {
                     header("Authorization", authHeader)
                 }
-                header("User-Agent", "SyncClipboard-Android")
+                header("User-Agent", SYNC_USER_AGENT)
             }
         ) {
             onConnected(this)
